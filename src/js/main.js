@@ -3,6 +3,7 @@ const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
 const zoom = 1.5;
+const gameSpeed = 10;
 
 //fps help counter
 let start = 0;
@@ -41,30 +42,34 @@ canvas.addEventListener('mousemove', event => {
 
 // TODO: refactor to something more sophisticated
 function determineDirection(enemy) {
-    if (enemy.positionX === 435 && enemy.positionY === 50) {
+    if (isInPosition(enemy.positionX, 435) && isInPosition(enemy.positionY, 50)) {
         enemy.direction = 'down';
     }
-    if (enemy.positionX === 435 && enemy.positionY === 296) {
+    if (isInPosition(enemy.positionX, 435) && isInPosition(enemy.positionY, 296)) {
         enemy.direction = 'left';
     }
-    if (enemy.positionX === 73 && enemy.positionY === 296) {
+    if (isInPosition(enemy.positionX, 73 )&& isInPosition(enemy.positionY, 296)) {
         enemy.direction = 'down';
     }
-    if (enemy.positionX === 73 && enemy.positionY === 296) {
+    if (isInPosition(enemy.positionX, 73 )&& isInPosition(enemy.positionY, 296)) {
         enemy.direction = 'down';
     }
-    if (enemy.positionX === 73 && enemy.positionY === 470) {
+    if (isInPosition(enemy.positionX, 73 )&& isInPosition(enemy.positionY, 470)) {
         enemy.direction = 'right';
     }
-    if (enemy.positionX === 837 && enemy.positionY === 470) {
+    if (isInPosition(enemy.positionX, 837) && isInPosition(enemy.positionY, 470)) {
         enemy.direction = 'up';
     }
+}
+
+function isInPosition(enemyPosition, position) {
+    return enemyPosition >= position-gameSpeed/2 && enemyPosition <= position+gameSpeed/2;
 }
 
 function renderEnemies(enemies) {
     enemies.forEach(function (enemy) {
         determineDirection(enemy);
-        enemy.move(1);
+        enemy.move(gameSpeed);
         ctx.beginPath();
         ctx.arc(enemy.positionX, enemy.positionY, 10, 0, Math.PI*2, true);
         ctx.fillStyle = 'black';
@@ -77,7 +82,7 @@ enemies.push(new Enemy(-15, 50));
 
 const interval = setInterval(function () {
     enemies.push(new Enemy(-15, 50));
-}, 2000);
+}, 2000/gameSpeed);
 
 let player = new Player();
 
@@ -103,6 +108,7 @@ main = function() {
     ctx.font = 'bold 20px serif';
     ctx.fillText(`FPS: ${fps}`, 10, 20);
     ctx.fillText(`score: ${score.get}`, canvas.width - 90, 20);
+    ctx.fillText(`speed: ${gameSpeed}`, canvas.width - 90, 50);
 
     renderEnemies(enemies);
 
