@@ -12,13 +12,13 @@ class Fixture
         this.height = height;
     }
 
-    draw(context, position)
+    draw(context, position, tower)
     {
         const image = new Image();
         image.src = this.src;
 
         context.translate(position.x, position.y);
-        context.rotate(getRotationToObject({x: position.x, y: position.y, r: this.RADIUS}, mouse));
+        context.rotate(getRotationToObject({x: position.x, y: position.y, r: this.RADIUS}, findNearestEnemy(tower)) + Math.PI / 2);
         context.translate( -position.x, -position.y);
         context.drawImage(image, position.x - this.width/2, position.y - this.height/2, this.width, this.height);
     }

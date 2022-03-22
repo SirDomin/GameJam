@@ -4,6 +4,7 @@ const ctx = canvas.getContext('2d');
 
 const zoom = 1.5;
 const gameSpeed = 2;
+const targetScore = 10;
 
 //fps help counter
 let start = 0;
@@ -34,6 +35,7 @@ canvas.addEventListener('enemyDead', event => {
 
 canvas.addEventListener('enemyEscaped', event => {
     score.decrease();
+    player.decreaseLife(1);
 })
 
 //create event listener
@@ -73,9 +75,28 @@ function isInPosition(enemyPosition, position) {
     return enemyPosition >= position-gameSpeed/2 && enemyPosition <= position+gameSpeed/2;
 }
 
+function gameOver() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.font = 'bold 100px serif';
+    ctx.fillText('GAME OVER', 10, 100);
+}
+
+function successfullyEndGame() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.font = 'bold 100px serif';
+    ctx.fillText('GAME WON', 10, 100);
+}
+
+function hitPlayer(enemy) {
+    if (enemy.y < 0) {
+        canvas.dispatchEvent(new Event('enemyEscaped'));
+    }
+}
+
 function renderEnemies(enemies) {
     enemies.forEach(function (enemy) {
         determineDirection(enemy);
+        hitPlayer(enemy);
         enemy.move(gameSpeed);
         ctx.beginPath();
         ctx.arc(enemy.x, enemy.y, enemy.r, 0, Math.PI*2, true);
@@ -114,38 +135,48 @@ function drawTowerButton(type, positionX, positionY) {
 let bullets = [];
 
 main = function() {
-    //calculate FPS
-    let now = performance.now();
-    let fps = Math.round(1000 / (now - start));
-    start = now;
+    if (player.isAlive()) {
+        //calculate FPS
+        let now = performance.now();
+        let fps = Math.round(1000 / (now - start));
+        start = now;
 
-    //clear whole canvas
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+        //clear whole canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    //draw map
-    ctx.drawImage(map, 0, 0, canvas.width - 100, canvas.height);
+        //draw map
+        ctx.drawImage(map, 0, 0, canvas.width - 100, canvas.height);
 
-    player.renderTowers(ctx);
+        player.renderTowers(ctx);
 
-    bullets.forEach((bullet) => {
-        bullet.update();
-        bullet.render(ctx)
-    })
+        bullets.forEach((bullet) => {
+            bullet.update();
+            bullet.render(ctx)
+        })
 
-    //write text on canvas
-    ctx.fillStyle = 'white';
-    ctx.font = 'bold 20px serif';
-    ctx.fillText(`FPS: ${fps}`, 10, 20);
-    ctx.fillText(`score: ${score.get}`, canvas.width - 90, 20);
-    ctx.fillText(`speed: ${gameSpeed}`, canvas.width - 90, 50);
+        //write text on canvas
+        ctx.fillStyle = 'white';
+        ctx.font = 'bold 20px serif';
+        ctx.fillText(`FPS: ${fps}`, 10, 20);
+        ctx.fillText(`score: ${score.get}`, canvas.width - 90, 20);
+        ctx.fillText(`speed: ${gameSpeed}`, canvas.width - 90, 50);
+        ctx.fillText(`life: ${player.life}`, canvas.width - 90, 80);
 
-    drawTowerButton(TowerType.BOMBER, 90, 70);
-    drawTowerButton(TowerType.WIZARD, 90, 130);
-    drawTowerButton(TowerType.SHOOTER, 90, 190);
+        drawTowerButton(TowerType.BOMBER, 90, 70);
+        drawTowerButton(TowerType.WIZARD, 90, 130);
+        drawTowerButton(TowerType.SHOOTER, 90, 190);
 
-    renderEnemies(enemies);
+        renderEnemies(enemies);
+    }
 
-    //game loop
+    if (isGameWon()) {
+        successfullyEndGame();
+    }
+
+    if (!player.isAlive()) {
+        gameOver();
+    }
+
     requestAnimationFrame(main);
 }
 
@@ -167,6 +198,10 @@ function handleTowerButton() {
     if (isButtonClicked(570, 40, 400, 20)) towerToPlaceColor = TowerType.SHOOTER;
     if (isButtonClicked(570, 40, 300, 20)) towerToPlaceColor = TowerType.WIZARD;
     if (isButtonClicked(570, 40, 250, 20)) towerToPlaceColor = TowerType.BOMBER;
+}
+
+function isGameWon() {
+    return score.get === targetScore;
 }
 
 //get random value between 2 numbers
