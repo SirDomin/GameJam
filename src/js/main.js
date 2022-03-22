@@ -34,6 +34,10 @@ canvas.addEventListener('enemyDead', event => {
 
 canvas.addEventListener('enemyEscaped', event => {
     score.decrease();
+    player.decreaseLife(1);
+    if (!player.isAlive()) {
+        gameOver();
+    }
 })
 
 //create event listener
@@ -73,9 +77,22 @@ function isInPosition(enemyPosition, position) {
     return enemyPosition >= position-gameSpeed/2 && enemyPosition <= position+gameSpeed/2;
 }
 
+function gameOver() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.font = 'bold 100px serif';
+    ctx.fillText('GAME OVER', 10, 100);
+}
+
+function hitPlayer(enemy) {
+    if (isInPosition(enemy.positionX, 840) && isInPosition(enemy.positionY, 0)) {
+        canvas.dispatchEvent(new Event('enemyEscaped'));
+    }
+}
+
 function renderEnemies(enemies) {
     enemies.forEach(function (enemy) {
         determineDirection(enemy);
+        hitPlayer(enemy);
         enemy.move(gameSpeed);
         ctx.beginPath();
         ctx.arc(enemy.x, enemy.y, enemy.r, 0, Math.PI*2, true);
@@ -138,6 +155,7 @@ main = function() {
     ctx.fillText(`FPS: ${fps}`, 10, 20);
     ctx.fillText(`score: ${score.get}`, canvas.width - 90, 20);
     ctx.fillText(`speed: ${gameSpeed}`, canvas.width - 90, 50);
+    ctx.fillText(`life: ${player.life}`, canvas.width - 90, 80);
 
     drawTowerButton(TowerType.BOMBER, 90, 70);
     drawTowerButton(TowerType.WIZARD, 90, 130);
@@ -145,8 +163,9 @@ main = function() {
 
     renderEnemies(enemies);
 
-    //game loop
-    requestAnimationFrame(main);
+    if (player.isAlive()) {
+        requestAnimationFrame(main);
+    }
 }
 
 
