@@ -15,9 +15,6 @@ canvas.height = window.innerHeight / zoom;
 const map = new Image();
 map.src = 'src/assets/map.png';
 
-const towerGreen = new Image();
-towerGreen.src = 'src/assets/tower_green.png';
-
 //mouse object
 const mouse = {
     x: 0,
@@ -53,6 +50,8 @@ const interval = setInterval(function () {
     enemies.push(new Enemy(-15, 50));
 }, 2000);
 
+let player = new Player();
+
 main = function() {
     //calculate FPS
     let now = performance.now();
@@ -66,12 +65,9 @@ main = function() {
     ctx.drawImage(map, 0, 0, canvas.width - 100, canvas.height);
 
     //rotate object to face other object
-    ctx.save();
-    ctx.translate(100, 100);
-    ctx.rotate(getRotationToObject({x: 100, y: 100, r: 25}, mouse));
-    ctx.translate( -100, -100);
-    ctx.drawImage(towerGreen, 75,75,50,50);
-    ctx.restore();
+    player.renderTower(115, 115);
+    player.renderTower(185, 115);
+    player.renderTower(245, 115);
 
     //write text on canvas
     ctx.fillStyle = 'white';
