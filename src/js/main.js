@@ -129,9 +129,7 @@ main = function() {
 
     bullets.forEach((bullet, index) => {
         if (bullet.x > canvas.width || bullet.y > canvas.height || bullet.x < 0 || bullet.y < 0) {
-            console.log('test');
             bullets.splice(index, 1);
-            console.log(bullets);
         }
     })
 
