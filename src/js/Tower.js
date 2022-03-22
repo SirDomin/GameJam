@@ -7,6 +7,6 @@ class Tower
     }
 
     draw(context) {
-        this.image.draw(context, this.position);
+        this.image.draw(context, this.position, this);
     }
 }
