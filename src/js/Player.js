@@ -1,8 +1,10 @@
 class Player {
     towers;
+    life;
 
     constructor() {
         this.towers = [];
+        this.life = 10;
     }
 
     addTower(tower) {
@@ -15,5 +17,13 @@ class Player {
             tower.draw(ctx);
             ctx.restore();
         });
+    }
+
+    decreaseLife(power) {
+        this.life-=power;
+    }
+
+    isAlive() {
+        return this.life > 0;
     }
 }
