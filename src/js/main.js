@@ -144,6 +144,12 @@ main = function() {
 
     player.renderTowers(ctx);
 
+    bullets.forEach((bullet, index) => {
+        if (bullet.x > canvas.width || bullet.y > canvas.height || bullet.x < 0 || bullet.y < 0) {
+            bullets.splice(index, 1);
+        }
+    })
+
     bullets.forEach((bullet) => {
         bullet.update();
         bullet.render(ctx)
