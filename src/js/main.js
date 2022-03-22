@@ -8,8 +8,8 @@ const zoom = 1.5;
 let start = 0;
 
 // adjust canvas to fit entire screen and zoom to scale
-canvas.width = window.innerWidth / zoom
-canvas.height = window.innerHeight / zoom;
+canvas.width = 1440 / zoom;
+canvas.height = 820 / zoom;
 
 //load image
 const map = new Image();
