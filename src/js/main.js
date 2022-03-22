@@ -66,13 +66,11 @@ main = function() {
     //draw map
     ctx.drawImage(map, 0, 0, canvas.width - 100, canvas.height);
 
-    //rotate object to face other object
-    player.renderTower(115, 115);
-    player.renderTower(185, 115);
-    player.renderTower(245, 115);
-    ctx.save();
-    loadAllTowers(ctx);
-    ctx.restore();
+    player.addTower(new Tower(new Position(185, 115), new Fixture('src/assets/tower_green.png', 50, 50)));
+    player.addTower(new Tower(new Position(115, 115), new Fixture('src/assets/tower_blue.png', 50, 50)));
+    player.addTower(new Tower(new Position(245, 115), new Fixture('src/assets/tower_red.png', 50, 50)));
+
+    player.renderTowers(ctx);
 
     //write text on canvas
     ctx.fillStyle = 'white';
@@ -95,12 +93,6 @@ getVelocityToObject = (object1, object2) => {
         x: Math.cos(Math.atan2((object1.y + object1.r / 2) - (object2.y), object2.x - (object1.x + object1.r / 2))),
         y: -1 * Math.sin(Math.atan2((object1.y + object1.r / 2) - (object2.y), object2.x - (object1.x + object1.r / 2)))
     }
-}
-
-loadAllTowers = (ctx) => {
-    towers.forEach(function (tower) {
-        tower.draw(ctx);
-    });
 }
 
 main();
