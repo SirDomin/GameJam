@@ -93,10 +93,11 @@ main = function() {
     //draw map
     ctx.drawImage(map, 0, 0, canvas.width - 100, canvas.height);
 
-    //rotate object to face other object
-    player.renderTower(115, 115);
-    player.renderTower(185, 115);
-    player.renderTower(245, 115);
+    player.addTower(new Tower(new Position(185, 115), new Fixture('src/assets/tower_green.png', 50, 50)));
+    player.addTower(new Tower(new Position(115, 115), new Fixture('src/assets/tower_blue.png', 50, 50)));
+    player.addTower(new Tower(new Position(245, 115), new Fixture('src/assets/tower_red.png', 50, 50)));
+
+    player.renderTowers(ctx);
 
     //write text on canvas
     ctx.fillStyle = 'white';
