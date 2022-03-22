@@ -103,6 +103,8 @@ function drawTowerButton(type, positionX, positionY) {
     ctx.drawImage(towerButton, canvas.width - positionX, canvas.height - positionY);
 }
 
+let bullets = [];
+
 main = function() {
     //calculate FPS
     let now = performance.now();
@@ -116,6 +118,11 @@ main = function() {
     ctx.drawImage(map, 0, 0, canvas.width - 100, canvas.height);
 
     player.renderTowers(ctx);
+
+    bullets.forEach((bullet) => {
+        bullet.update();
+        bullet.render(ctx)
+    })
 
     //write text on canvas
     ctx.fillStyle = 'white';
@@ -163,4 +170,14 @@ getVelocityToObject = (object1, object2) => {
     }
 }
 
+renderBullet = () => {
+    setInterval(() => {
+        const bullet = new Bullet(75, 75, 5);
+
+        bullets.push(bullet);
+        console.log(bullets);
+    }, 1000)
+}
+
 main();
+renderBullet();
