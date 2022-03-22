@@ -26,7 +26,11 @@ let score = new Score();
 
 //create event listener
 canvas.addEventListener('enemyDead', event => {
-    score.add();
+    score.increase();
+})
+
+canvas.addEventListener('enemyEscaped', event => {
+    score.decrease();
 })
 
 //update mouse on every change
