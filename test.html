@@ -8,13 +8,37 @@
     <script src="src/js/Score.js"></script>
     <script src="src/js/Enemy.js"></script>
     <script src="src/js/Player.js"></script>
+    <script src="src/js/Position.js"></script>
+    <script src="src/js/Tower.js"></script>
+    <script src="src/js/Tower/Bomber.js"></script>
+    <script src="src/js/Tower/Shooter.js"></script>
+    <script src="src/js/Tower/Wizard.js"></script>
+    <script src="src/js/Tower/TowerFactory.js"></script>
+    <script src="src/js/Tower/TowerType.js"></script>
+    <script src="src/js/Fixture.js"></script>
+    <script src="src/js/Bullet.js"></script>
 
     <script src="src/js/Assert.js"></script>
     <script>
         (function () {
-            const player = new Player();
-            Assert.true(player.towerGreen.src === 'src/assets/tower_green.png', 'Tower is not green')
-        })
+            const canvas = {};
+            const mouse = {};
+
+            function isButtonClicked(xx, xy, yx, yy) {
+                return mouse.x >= (canvas.width - xx)
+                    && mouse.x <= (canvas.width - xy)
+                    && mouse.y >= (canvas.height - yx)
+                    && mouse.y <= (canvas.height - yy)
+                    ;
+            }
+
+            canvas.width = 100;
+            canvas.height = 100;
+            mouse.x = 85;
+            mouse.y = 85;
+
+            Assert.true(isButtonClicked(20, 10, 20, 10), 'Tower is not green')
+        })()
     </script>
 </body>
 </html>

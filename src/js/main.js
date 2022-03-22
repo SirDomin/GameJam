@@ -151,20 +151,22 @@ main = function() {
 
 
 function isButtonClicked(xx, xy, yx, yy) {
-    return mouse.x >= canvas.width - xx && mouse.x <= canvas.width - xy &&
-        mouse.y >= canvas.height - yx && mouse.y <= canvas.height - yy
+    return mouse.x >= (canvas.width - xx)
+        && mouse.x <= (canvas.width - xy)
+        && mouse.y >= (canvas.height - yx)
+        && mouse.y <= (canvas.height - yy)
     ;
 }
 
 function handleTowerButton() {
     if (towerToPlaceColor !== null) {
-        TowerFactory.create(towerToPlaceColor, mouse.x, mouse.y)
+        player.addTower(TowerFactory.create(towerToPlaceColor, mouse.x, mouse.y));
         towerToPlaceColor = null;
     }
 
-    if (isButtonClicked(90, 40, 70, 20)) towerToPlaceColor = TowerType.BOMBER;
-    if (isButtonClicked(90, 40, 130, 80)) towerToPlaceColor = TowerType.SHOOTER;
-    if (isButtonClicked(90, 40, 190, 140)) towerToPlaceColor = TowerType.WIZARD;
+    if (isButtonClicked(570, 40, 400, 20)) towerToPlaceColor = TowerType.SHOOTER;
+    if (isButtonClicked(570, 40, 300, 20)) towerToPlaceColor = TowerType.WIZARD;
+    if (isButtonClicked(570, 40, 250, 20)) towerToPlaceColor = TowerType.BOMBER;
 }
 
 //get random value between 2 numbers
