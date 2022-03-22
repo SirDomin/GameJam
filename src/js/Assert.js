@@ -4,7 +4,7 @@ class Assert
         if (test === true) {
             console.log('Test Passed: ', message);
         } else {
-            console.log('Test Failed: ', message)
+            console.error('Test Failed: ', message)
         }
     }
 }
