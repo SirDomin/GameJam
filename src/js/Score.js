@@ -1,8 +1,12 @@
 class Score {
     score = 0
 
-    add(score = 1) {
+    increase(score = 1) {
         this.score += score;
+    }
+
+    decrease(score = 1) {
+        this.score -= score;
     }
 
     get get() {
