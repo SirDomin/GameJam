@@ -11,7 +11,7 @@ let start = 0;
 canvas.width = 1440 / zoom;
 canvas.height = 820 / zoom;
 
-let towerPlace = false;
+let towerToPlaceColor = null;
 
 //load image
 const map = new Image();
@@ -88,6 +88,12 @@ player.addTower(new Tower(new Position(185, 115), new Fixture('src/assets/tower_
 player.addTower(new Tower(new Position(115, 115), new Fixture('src/assets/tower_blue.png', 50, 50)));
 player.addTower(new Tower(new Position(245, 115), new Fixture('src/assets/tower_red.png', 50, 50)));
 
+function drawTowerButton(type, positionX, positionY) {
+    let towerButton = new Image();
+    towerButton.src = 'src/assets/tower_'+type+'.png';
+    ctx.drawImage(towerButton, canvas.width - positionX, canvas.height - positionY);
+}
+
 main = function() {
     //calculate FPS
     let now = performance.now();
@@ -108,9 +114,9 @@ main = function() {
     ctx.fillText(`FPS: ${fps}`, 10, 20);
     ctx.fillText(`score: ${score.get}`, canvas.width - 90, 20);
 
-    let towerButton = new Image();
-    towerButton.src = 'src/assets/tower_green.png';
-    ctx.drawImage(towerButton, canvas.width - 90, canvas.height - 70);
+    drawTowerButton('green', 90, 70);
+    drawTowerButton('red', 90, 130);
+    drawTowerButton('blue', 90, 190);
 
     renderEnemies(enemies);
 
@@ -121,19 +127,19 @@ main = function() {
 
 function isButtonClicked(xx, xy, yx, yy) {
     return mouse.x >= canvas.width - xx && mouse.x <= canvas.width - xy &&
-        mouse.y >= canvas.height - yx && mouse.y <= canvas.height + yy
+        mouse.y >= canvas.height - yx && mouse.y <= canvas.height - yy
     ;
 }
 
 function handleTowerButton() {
-    if (towerPlace) {
-        player.addTower(new Tower(new Position(mouse.x, mouse.y), new Fixture('src/assets/tower_green.png', 50, 50)));
-        towerPlace = false;
+    if (towerToPlaceColor !== null) {
+        player.addTower(new Tower(new Position(mouse.x, mouse.y), new Fixture('src/assets/tower_'+towerToPlaceColor+'.png', 50, 50)));
+        towerToPlaceColor = null;
     }
 
-    if (isButtonClicked(90, 40, 70, 20)) {
-        towerPlace = true;
-    }
+    if (isButtonClicked(90, 40, 70, 20)) towerToPlaceColor = 'green';
+    if (isButtonClicked(90, 40, 130, 80)) towerToPlaceColor = 'red';
+    if (isButtonClicked(90, 40, 190, 140)) towerToPlaceColor = 'blue';
 }
 
 //get random value between 2 numbers
