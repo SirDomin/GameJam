@@ -29,15 +29,42 @@ canvas.addEventListener('enemyDead', event => {
     score.add();
 })
 
+//create event listener
+canvas.addEventListener('click', event => {
+})
+
 //update mouse on every change
 canvas.addEventListener('mousemove', event => {
     mouse.x = (event.clientX - canvas.offsetLeft) / zoom;
     mouse.y = (event.clientY - canvas.offsetTop) / zoom;
 })
 
+// TODO: refactor to something more sophisticated
+function determineDirection(enemy) {
+    if (enemy.positionX === 435 && enemy.positionY === 50) {
+        enemy.direction = 'down';
+    }
+    if (enemy.positionX === 435 && enemy.positionY === 296) {
+        enemy.direction = 'left';
+    }
+    if (enemy.positionX === 73 && enemy.positionY === 296) {
+        enemy.direction = 'down';
+    }
+    if (enemy.positionX === 73 && enemy.positionY === 296) {
+        enemy.direction = 'down';
+    }
+    if (enemy.positionX === 73 && enemy.positionY === 470) {
+        enemy.direction = 'right';
+    }
+    if (enemy.positionX === 837 && enemy.positionY === 470) {
+        enemy.direction = 'up';
+    }
+}
+
 function renderEnemies(enemies) {
     enemies.forEach(function (enemy) {
-        enemy.moveRight();
+        determineDirection(enemy);
+        enemy.move(1);
         ctx.beginPath();
         ctx.arc(enemy.positionX, enemy.positionY, 10, 0, Math.PI*2, true);
         ctx.fillStyle = 'black';
