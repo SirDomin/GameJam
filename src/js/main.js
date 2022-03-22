@@ -3,7 +3,7 @@ const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
 const zoom = 1.5;
-const gameSpeed = 10;
+const gameSpeed = 2;
 
 //fps help counter
 let start = 0;
@@ -139,9 +139,9 @@ main = function() {
     ctx.fillText(`score: ${score.get}`, canvas.width - 90, 20);
     ctx.fillText(`speed: ${gameSpeed}`, canvas.width - 90, 50);
 
-    drawTowerButton('green', 90, 70);
-    drawTowerButton('red', 90, 130);
-    drawTowerButton('blue', 90, 190);
+    drawTowerButton(TowerType.BOMBER, 90, 70);
+    drawTowerButton(TowerType.WIZARD, 90, 130);
+    drawTowerButton(TowerType.SHOOTER, 90, 190);
 
     renderEnemies(enemies);
 
@@ -158,13 +158,13 @@ function isButtonClicked(xx, xy, yx, yy) {
 
 function handleTowerButton() {
     if (towerToPlaceColor !== null) {
-        player.addTower(new Tower(new Position(mouse.x, mouse.y), new Fixture('src/assets/tower_'+towerToPlaceColor+'.png', 50, 50)));
+        TowerFactory.create(towerToPlaceColor, mouse.x, mouse.y)
         towerToPlaceColor = null;
     }
 
-    if (isButtonClicked(90, 40, 70, 20)) towerToPlaceColor = 'green';
-    if (isButtonClicked(90, 40, 130, 80)) towerToPlaceColor = 'red';
-    if (isButtonClicked(90, 40, 190, 140)) towerToPlaceColor = 'blue';
+    if (isButtonClicked(90, 40, 70, 20)) towerToPlaceColor = TowerType.BOMBER;
+    if (isButtonClicked(90, 40, 130, 80)) towerToPlaceColor = TowerType.SHOOTER;
+    if (isButtonClicked(90, 40, 190, 140)) towerToPlaceColor = TowerType.WIZARD;
 }
 
 //get random value between 2 numbers
