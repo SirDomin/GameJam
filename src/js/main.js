@@ -84,7 +84,7 @@ function gameOver() {
 }
 
 function hitPlayer(enemy) {
-    if (isInPosition(enemy.positionX, 840) && isInPosition(enemy.positionY, 0)) {
+    if (enemy.y < 0) {
         canvas.dispatchEvent(new Event('enemyEscaped'));
     }
 }
