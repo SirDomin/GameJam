@@ -162,9 +162,9 @@ function handleTowerButton() {
         towerToPlaceColor = null;
     }
 
+    if (isButtonClicked(90, 40, 190, 140)) towerToPlaceColor = TowerType.SHOOTER;
+    if (isButtonClicked(90, 40, 130, 80)) towerToPlaceColor = TowerType.WIZARD;
     if (isButtonClicked(90, 40, 70, 20)) towerToPlaceColor = TowerType.BOMBER;
-    if (isButtonClicked(90, 40, 130, 80)) towerToPlaceColor = TowerType.SHOOTER;
-    if (isButtonClicked(90, 40, 190, 140)) towerToPlaceColor = TowerType.WIZARD;
 }
 
 //get random value between 2 numbers
