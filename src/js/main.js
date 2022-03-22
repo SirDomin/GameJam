@@ -158,7 +158,7 @@ function isButtonClicked(xx, xy, yx, yy) {
 
 function handleTowerButton() {
     if (towerToPlaceColor !== null) {
-        TowerFactory.create(towerToPlaceColor, mouse.x, mouse.y)
+        player.addTower(TowerFactory.create(towerToPlaceColor, mouse.x, mouse.y));
         towerToPlaceColor = null;
     }
 
