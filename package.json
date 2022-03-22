@@ -1,0 +1,22 @@
+{
+  "name": "gamejam",
+  "version": "1.0.0",
+  "description": "<h1 align=\"center\">SyliusCamp GameJam</h1>\r <h1 align=\"center\"><a href=\"https://sirdomin.github.io/GameJam/\">Game</a></h1>\r <h1 align=\"center\"><a href=\"https://github.com/SirDomin/GameJam/projects/1\">Task backlog</a></h1>",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lchrusciel/GameJam.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lchrusciel/GameJam/issues"
+  },
+  "homepage": "https://github.com/lchrusciel/GameJam#readme",
+  "devDependencies": {
+    "jest": "^27.5.1"
+  }
+}
