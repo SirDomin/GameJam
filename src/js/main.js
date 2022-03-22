@@ -49,6 +49,10 @@ function renderEnemies(enemies) {
 let enemies = [];
 enemies.push(new Enemy(-15, 50));
 
+const interval = setInterval(function () {
+    enemies.push(new Enemy(-15, 50));
+}, 2000);
+
 main = function() {
 
     //calculate FPS
