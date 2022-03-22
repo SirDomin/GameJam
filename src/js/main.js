@@ -36,6 +36,23 @@ canvas.addEventListener('mousemove', event => {
     mouse.y = (event.clientY - canvas.offsetTop) / zoom;
 })
 
+function renderEnemies(enemies) {
+    enemies.forEach(function (enemy) {
+        enemy.moveRight();
+        ctx.beginPath();
+        ctx.arc(enemy.positionX, enemy.positionY, 10, 0, Math.PI*2, true);
+        ctx.fillStyle = 'black';
+        ctx.fill();
+    })
+}
+
+let enemies = [];
+enemies.push(new Enemy(-15, 50));
+
+const interval = setInterval(function () {
+    enemies.push(new Enemy(-15, 50));
+}, 2000);
+
 main = function() {
 
     //calculate FPS
@@ -61,6 +78,8 @@ main = function() {
     ctx.fillStyle = 'white';
     ctx.font = 'bold 20px serif';
     ctx.fillText(`FPS: ${fps}`, 10, 20);
+
+    renderEnemies(enemies);
 
     //game loop
     requestAnimationFrame(main);
