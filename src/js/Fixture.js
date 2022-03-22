@@ -1,5 +1,8 @@
 class Fixture
 {
+    static WIZARD = 'src/assets/tower_wizard.png';
+    static BOMBER = 'src/assets/tower_bomber.png';
+    static SHOOTER = 'src/assets/tower_shooter.png';
     RADIUS = 25;
 
     constructor(src, width, height)

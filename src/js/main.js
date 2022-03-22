@@ -93,9 +93,9 @@ const interval = setInterval(function () {
 
 let player = new Player();
 
-player.addTower(new Tower(new Position(185, 115), new Fixture('src/assets/tower_green.png', 50, 50)));
-player.addTower(new Tower(new Position(115, 115), new Fixture('src/assets/tower_blue.png', 50, 50)));
-player.addTower(new Tower(new Position(245, 115), new Fixture('src/assets/tower_red.png', 50, 50)));
+player.addTower(new Bomber(new Position(185, 115)));
+player.addTower(new Shooter(new Position(115, 115)));
+player.addTower(new Wizard(new Position(245, 115)));
 
 function drawTowerButton(type, positionX, positionY) {
     let towerButton = new Image();
