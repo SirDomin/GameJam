@@ -15,8 +15,8 @@ canvas.height = window.innerHeight / zoom;
 const map = new Image();
 map.src = 'src/assets/map.png';
 
-const tower_green = new Image();
-tower_green.src = 'src/assets/tower_green.png';
+const towers = [];
+towers.push(new Tower(new Position(75, 75), new Fixture('src/assets/tower_green.png', 50, 50)))
 
 //mouse object
 const mouse = {
@@ -54,7 +54,7 @@ main = function() {
     ctx.translate(100, 100);
     ctx.rotate(getRotationToObject({x: 100, y: 100, r: 25}, mouse));
     ctx.translate( -100, -100);
-    ctx.drawImage(tower_green, 75,75,50,50);
+    loadAllTowers(ctx);
     ctx.restore();
 
     //write text on canvas
@@ -75,6 +75,12 @@ getVelocityToObject = (object1, object2) => {
         x: Math.cos(Math.atan2((object1.y + object1.r / 2) - (object2.y), object2.x - (object1.x + object1.r / 2))),
         y: -1 * Math.sin(Math.atan2((object1.y + object1.r / 2) - (object2.y), object2.x - (object1.x + object1.r / 2)))
     }
+}
+
+loadAllTowers = (ctx) => {
+    towers.forEach(function (tower) {
+        tower.draw(ctx);
+    });
 }
 
 main();
