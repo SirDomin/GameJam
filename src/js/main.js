@@ -15,8 +15,8 @@ canvas.height = window.innerHeight / zoom;
 const map = new Image();
 map.src = 'src/assets/map.png';
 
-const tower_green = new Image();
-tower_green.src = 'src/assets/tower_green.png';
+const towerGreen = new Image();
+towerGreen.src = 'src/assets/tower_green.png';
 
 //mouse object
 const mouse = {
@@ -54,7 +54,6 @@ const interval = setInterval(function () {
 }, 2000);
 
 main = function() {
-
     //calculate FPS
     let now = performance.now();
     let fps = Math.round(1000 / (now - start));
@@ -71,7 +70,7 @@ main = function() {
     ctx.translate(100, 100);
     ctx.rotate(getRotationToObject({x: 100, y: 100, r: 25}, mouse));
     ctx.translate( -100, -100);
-    ctx.drawImage(tower_green, 75,75,50,50);
+    ctx.drawImage(towerGreen, 75,75,50,50);
     ctx.restore();
 
     //write text on canvas
