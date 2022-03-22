@@ -94,8 +94,8 @@ main = function() {
     ctx.drawImage(map, 0, 0, canvas.width - 100, canvas.height);
 
     player.addTower(new Bomber(new Position(185, 115)));
-    player.addTower(new Tower(new Position(115, 115)));
-    player.addTower(new Tower(new Position(245, 115)));
+    player.addTower(new Shooter(new Position(115, 115)));
+    player.addTower(new Wizard(new Position(245, 115)));
 
     player.renderTowers(ctx);
 
