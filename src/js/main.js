@@ -84,6 +84,14 @@ function renderEnemies(enemies) {
     })
 }
 
+renderBullet = () => {
+    setInterval(() => {
+        const bullet = new Bullet(75, 75, 5);
+
+        bullets.push(bullet);
+    }, 1000)
+}
+
 let enemies = [];
 enemies.push(new Enemy(-15, 50));
 
@@ -168,15 +176,6 @@ getVelocityToObject = (object1, object2) => {
         x: Math.cos(Math.atan2((object1.y + object1.r / 2) - (object2.y), object2.x - (object1.x + object1.r / 2))),
         y: -1 * Math.sin(Math.atan2((object1.y + object1.r / 2) - (object2.y), object2.x - (object1.x + object1.r / 2)))
     }
-}
-
-renderBullet = () => {
-    setInterval(() => {
-        const bullet = new Bullet(75, 75, 5);
-
-        bullets.push(bullet);
-        console.log(bullets);
-    }, 1000)
 }
 
 main();
