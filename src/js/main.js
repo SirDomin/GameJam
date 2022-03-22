@@ -49,22 +49,22 @@ canvas.addEventListener('mousemove', event => {
 
 // TODO: refactor to something more sophisticated
 function determineDirection(enemy) {
-    if (isInPosition(enemy.positionX, 435) && isInPosition(enemy.positionY, 50)) {
+    if (isInPosition(enemy.x, 435) && isInPosition(enemy.y, 50)) {
         enemy.direction = 'down';
     }
-    if (isInPosition(enemy.positionX, 435) && isInPosition(enemy.positionY, 296)) {
+    if (isInPosition(enemy.x, 435) && isInPosition(enemy.y, 296)) {
         enemy.direction = 'left';
     }
-    if (isInPosition(enemy.positionX, 73 )&& isInPosition(enemy.positionY, 296)) {
+    if (isInPosition(enemy.x, 73 )&& isInPosition(enemy.y, 296)) {
         enemy.direction = 'down';
     }
-    if (isInPosition(enemy.positionX, 73 )&& isInPosition(enemy.positionY, 296)) {
+    if (isInPosition(enemy.x, 73 )&& isInPosition(enemy.y, 296)) {
         enemy.direction = 'down';
     }
-    if (isInPosition(enemy.positionX, 73 )&& isInPosition(enemy.positionY, 470)) {
+    if (isInPosition(enemy.x, 73 )&& isInPosition(enemy.y, 470)) {
         enemy.direction = 'right';
     }
-    if (isInPosition(enemy.positionX, 837) && isInPosition(enemy.positionY, 470)) {
+    if (isInPosition(enemy.x, 837) && isInPosition(enemy.y, 470)) {
         enemy.direction = 'up';
     }
 }
@@ -78,7 +78,7 @@ function renderEnemies(enemies) {
         determineDirection(enemy);
         enemy.move(gameSpeed);
         ctx.beginPath();
-        ctx.arc(enemy.positionX, enemy.positionY, 10, 0, Math.PI*2, true);
+        ctx.arc(enemy.x, enemy.y, enemy.r, 0, Math.PI*2, true);
         ctx.fillStyle = 'black';
         ctx.fill();
     })
@@ -86,9 +86,9 @@ function renderEnemies(enemies) {
 
 renderBullet = () => {
     setInterval(() => {
-        const bullet = new Bullet(100, 100, 5);
-
-        bullets.push(bullet);
+        player.towers.forEach((tower) => {
+            bullets.push(new Bullet(tower.position.x, tower.position.y, 5, tower));
+        })
     }, 1000)
 }
 
@@ -178,13 +178,20 @@ getVelocityToObject = (object1, object2) => {
     }
 }
 
-findNearestEnemy = (x, y) => {
-    let distances = [];
+findNearestEnemy = (tower) => {
+    let closest = 1000;
+    let closestEnemy = null;
+
     enemies.forEach((enemy) => {
-        distances.push(getDistanceBetweenObjects({x, y}, enemy));
+        let distance = getDistanceBetweenObjects(tower.position, enemy);
+
+        if (distance < closest) {
+            closest = distance;
+            closestEnemy = enemy;
+        }
     })
 
-    return enemies[distances.indexOf(Math.min(distances))];
+    return closestEnemy;
 }
 
 main();

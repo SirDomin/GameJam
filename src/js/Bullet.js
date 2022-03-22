@@ -1,9 +1,15 @@
 class Bullet {
-    constructor(x, y, r) {
+    constructor(x, y, r, tower) {
         this.x = x;
         this.y = y;
         this.radius = r;
-        this.velocity = getVelocityToObject({x: x, y: y, r: r}, mouse);
+        this.r = r;
+        this.tower = tower;
+        let enemy = findNearestEnemy(this.tower);
+        this.velocity = {x: 1, y: 1};
+        if (enemy) {
+            this.velocity = getVelocityToObject(this.tower.position, enemy);
+        }
     }
 
     render(ctx)

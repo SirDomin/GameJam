@@ -1,8 +1,9 @@
 class Enemy
 {
-    constructor(positionX, positionY) {
-        this.positionX = positionX;
-        this.positionY = positionY;
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.r = 10;
         this.score = 10;
         this.life = 1;
         this.direction = 'right';
@@ -10,10 +11,10 @@ class Enemy
 
     move(speed) {
         switch (this.direction) {
-            case 'right': this.positionX+=speed; break;
-            case 'left': this.positionX-=speed; break;
-            case 'up': this.positionY-=speed; break;
-            case 'down': this.positionY+=speed; break;
+            case 'right': this.x+=speed; break;
+            case 'left': this.x-=speed; break;
+            case 'up': this.y-=speed; break;
+            case 'down': this.y+=speed; break;
         }
     }
 }
