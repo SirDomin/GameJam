@@ -10,7 +10,8 @@ class Bullet {
     {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
-        ctx.stroke();
+        ctx.fillStyle = 'red';
+        ctx.fill();
     }
 
     update()

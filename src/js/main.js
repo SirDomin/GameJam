@@ -86,7 +86,7 @@ function renderEnemies(enemies) {
 
 renderBullet = () => {
     setInterval(() => {
-        const bullet = new Bullet(75, 75, 5);
+        const bullet = new Bullet(100, 100, 5);
 
         bullets.push(bullet);
     }, 1000)
@@ -176,6 +176,15 @@ getVelocityToObject = (object1, object2) => {
         x: Math.cos(Math.atan2((object1.y + object1.r / 2) - (object2.y), object2.x - (object1.x + object1.r / 2))),
         y: -1 * Math.sin(Math.atan2((object1.y + object1.r / 2) - (object2.y), object2.x - (object1.x + object1.r / 2)))
     }
+}
+
+findNearestEnemy = (x, y) => {
+    let distances = [];
+    enemies.forEach((enemy) => {
+        distances.push(getDistanceBetweenObjects({x, y}, enemy));
+    })
+
+    return enemies[distances.indexOf(Math.min(distances))];
 }
 
 main();
