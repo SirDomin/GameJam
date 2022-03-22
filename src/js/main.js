@@ -70,6 +70,9 @@ main = function() {
     player.renderTower(115, 115);
     player.renderTower(185, 115);
     player.renderTower(245, 115);
+    ctx.save();
+    loadAllTowers(ctx);
+    ctx.restore();
 
     //write text on canvas
     ctx.fillStyle = 'white';
@@ -92,6 +95,12 @@ getVelocityToObject = (object1, object2) => {
         x: Math.cos(Math.atan2((object1.y + object1.r / 2) - (object2.y), object2.x - (object1.x + object1.r / 2))),
         y: -1 * Math.sin(Math.atan2((object1.y + object1.r / 2) - (object2.y), object2.x - (object1.x + object1.r / 2)))
     }
+}
+
+loadAllTowers = (ctx) => {
+    towers.forEach(function (tower) {
+        tower.draw(ctx);
+    });
 }
 
 main();
