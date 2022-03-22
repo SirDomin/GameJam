@@ -89,7 +89,7 @@ renderBullet = () => {
         player.towers.forEach((tower) => {
             bullets.push(new Bullet(tower.position.x, tower.position.y, 5, tower));
         })
-    }, 1000)
+    }, 1000 / gameSpeed)
 }
 
 let enemies = [];
@@ -128,7 +128,7 @@ main = function() {
     player.renderTowers(ctx);
 
     bullets.forEach((bullet) => {
-        bullet.update();
+        bullet.update(gameSpeed);
         bullet.render(ctx)
     })
 

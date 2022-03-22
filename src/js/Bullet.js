@@ -20,9 +20,9 @@ class Bullet {
         ctx.fill();
     }
 
-    update()
+    update(speed)
     {
-        this.x += this.velocity.x;
-        this.y += this.velocity.y;
+        this.x += this.velocity.x * speed;
+        this.y += this.velocity.y * speed;
     }
 }
