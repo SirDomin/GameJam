@@ -25,9 +25,11 @@ const mouse = {
     r: 1,
 }
 
-//create event listener
-canvas.addEventListener('click', event => {
+let score = new Score();
 
+//create event listener
+canvas.addEventListener('enemyDead', event => {
+    score.add();
 })
 
 //update mouse on every change
@@ -77,6 +79,7 @@ main = function() {
     ctx.fillStyle = 'white';
     ctx.font = 'bold 20px serif';
     ctx.fillText(`FPS: ${fps}`, 10, 20);
+    ctx.fillText(`score: ${score.get}`, canvas.width - 90, 20);
 
     renderEnemies(enemies);
 
