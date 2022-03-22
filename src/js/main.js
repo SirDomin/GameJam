@@ -11,6 +11,8 @@ let start = 0;
 canvas.width = 1440 / zoom;
 canvas.height = 820 / zoom;
 
+let towerPlace = false;
+
 //load image
 const map = new Image();
 map.src = 'src/assets/map.png';
@@ -31,6 +33,7 @@ canvas.addEventListener('enemyDead', event => {
 
 //create event listener
 canvas.addEventListener('click', event => {
+    handleTowerButton();
 })
 
 //update mouse on every change
@@ -105,10 +108,32 @@ main = function() {
     ctx.fillText(`FPS: ${fps}`, 10, 20);
     ctx.fillText(`score: ${score.get}`, canvas.width - 90, 20);
 
+    let towerButton = new Image();
+    towerButton.src = 'src/assets/tower_green.png';
+    ctx.drawImage(towerButton, canvas.width - 90, canvas.height - 70);
+
     renderEnemies(enemies);
 
     //game loop
     requestAnimationFrame(main);
+}
+
+
+function isButtonClicked(xx, xy, yx, yy) {
+    return mouse.x >= canvas.width - xx && mouse.x <= canvas.width - xy &&
+        mouse.y >= canvas.height - yx && mouse.y <= canvas.height + yy
+    ;
+}
+
+function handleTowerButton() {
+    if (towerPlace) {
+        player.addTower(new Tower(new Position(mouse.x, mouse.y), new Fixture('src/assets/tower_green.png', 50, 50)));
+        towerPlace = false;
+    }
+
+    if (isButtonClicked(90, 40, 70, 20)) {
+        towerPlace = true;
+    }
 }
 
 //get random value between 2 numbers
